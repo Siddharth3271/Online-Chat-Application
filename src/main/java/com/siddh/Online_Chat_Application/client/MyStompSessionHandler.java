@@ -19,11 +19,15 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
     //after connecting with server
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
+        System.out.println("Client Connected Successfully");
+        session.send("/app/connect",username);
+
         session.subscribe("/topic/messages", new StompFrameHandler() {
 
             //tell the client the expected type of data sent to the server
             @Override
             public Type getPayloadType(StompHeaders headers) {
+                System.out.println("Subscribing to topic/messages");
                 return Message.class;       //convert incoming json data to message object
             }
 
@@ -44,6 +48,8 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
                 }
             }
         });
+
+        System.out.println("Client subscribed to topic/messages");
     }
 
     @Override
