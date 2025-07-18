@@ -32,7 +32,7 @@ public class MyStompClient {
         stompClient.setMessageConverter(new MappingJackson2MessageConverter());
 
         StompSessionHandler sessionHandler=new MyStompSessionHandler(messageListener,username);
-        String url="ws://localhost:8081/ws";
+        String url="https://online-chat-application-hy1a.onrender.com/ws";
 
         session=stompClient.connectAsync(url,sessionHandler).get();
 
