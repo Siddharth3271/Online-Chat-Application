@@ -3,6 +3,8 @@ package com.siddh.Online_Chat_Application.client;
 import com.siddh.Online_Chat_Application.Message;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -25,6 +27,7 @@ public class ClientGUI  extends JFrame implements MessageListener{
     private JPanel messagePanel;
     private MyStompClient myStompClient;
     private String username;
+    private JScrollPane messagePanelScrollPane;
 
     public ClientGUI(String username) throws ExecutionException, InterruptedException {
         super("User: "+username);
@@ -85,7 +88,22 @@ public class ClientGUI  extends JFrame implements MessageListener{
         messagePanel=new JPanel();
         messagePanel.setLayout(new BoxLayout(messagePanel,BoxLayout.Y_AXIS));
         messagePanel.setBackground(Utilities.TRANSPARENT_COLOR);
-        chatPanel.add(messagePanel,BorderLayout.CENTER);
+
+        messagePanelScrollPane=new JScrollPane(messagePanel);
+        messagePanelScrollPane.setBackground(Utilities.TRANSPARENT_COLOR);
+        messagePanelScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        messagePanelScrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        //revalidate everytime we scroll
+        messagePanelScrollPane.getViewport().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                revalidate();
+                repaint();
+            }
+        });
+
+        chatPanel.add(messagePanelScrollPane,BorderLayout.CENTER);
 
 //        JLabel message=new JLabel("Random Message");
 //        message.setFont(new Font("Inter",Font.BOLD,16));
