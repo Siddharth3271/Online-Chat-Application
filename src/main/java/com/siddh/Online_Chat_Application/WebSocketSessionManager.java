@@ -26,7 +26,7 @@ public class WebSocketSessionManager {
     }
 
     public void broadcastActiveUsernames(){
-        messagingTemplate.convertAndSend("topic/users",activeUsernames);
+        messagingTemplate.convertAndSend("/topic/users",activeUsernames);
         System.out.println("Broadcasting active users to topic/users "+activeUsernames);
     }
 }

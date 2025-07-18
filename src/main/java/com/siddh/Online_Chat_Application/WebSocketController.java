@@ -14,8 +14,9 @@ public class WebSocketController {
     //allow to automatically inject the dependencies when creating an instance of the websocket controller
     @Autowired
     public WebSocketController(SimpMessagingTemplate messagingTemplate,WebSocketSessionManager sessionManager){
-        this.messagingTemplate=messagingTemplate;
+
         this.sessionManager=sessionManager;
+        this.messagingTemplate=messagingTemplate;
     }
 
     @MessageMapping("/message")
@@ -42,5 +43,12 @@ public class WebSocketController {
         sessionManager.removeUsername(username);
         sessionManager.broadcastActiveUsernames();
         System.out.println(username + " disconnected");
+    }
+
+    @MessageMapping("/request-users")
+    public void requestUsers(){
+        sessionManager.broadcastActiveUsernames();
+        System.out.println("Requesting Users");
+
     }
 }

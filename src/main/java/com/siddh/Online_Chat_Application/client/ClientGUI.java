@@ -8,9 +8,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class ClientGUI  extends JFrame {
+public class ClientGUI  extends JFrame implements MessageListener{
 
 
 //    public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -29,7 +30,7 @@ public class ClientGUI  extends JFrame {
         super("User: "+username);
 
         this.username=username;
-        myStompClient=new MyStompClient(username);
+        myStompClient=new MyStompClient(this,username);
 
         setSize(800,500);
         setLocationRelativeTo(null);
@@ -150,5 +151,38 @@ public class ClientGUI  extends JFrame {
         chatMessage.add(messageLabel);
 
         return chatMessage;
+    }
+
+    @Override
+    public void onMessageRecieve(Message message) {
+//        System.out.println("On Message Recieve");
+        messagePanel.add(createChatMessageComponent(message));
+        revalidate();
+        repaint();
+    }
+
+    @Override
+    public void onActiveUsersUpdated(ArrayList<String> users) {
+        //remove the current user list panel (which should be the second component in the panel)
+        //the user list panel doesn't get added until after and this is mainly for when the users get updated
+        if(connectedUsersPanel.getComponents().length>=2){
+            connectedUsersPanel.remove(1);
+        }
+
+        JPanel userListPanel=new JPanel();
+        userListPanel.setBackground(Utilities.TRANSPARENT_COLOR);
+        userListPanel.setLayout(new BoxLayout(userListPanel, BoxLayout.Y_AXIS));
+
+        for(String user : users){
+            JLabel username=new JLabel();
+            username.setText(user);
+            username.setForeground(Utilities.TEXT_COLOR);
+            username.setFont(new Font("Inter", Font.BOLD, 14));
+            userListPanel.add(username);
+        }
+
+        connectedUsersPanel.add(userListPanel);
+        revalidate();
+        repaint();
     }
 }

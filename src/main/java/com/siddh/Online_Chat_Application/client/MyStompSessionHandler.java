@@ -7,14 +7,17 @@ import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 //managing connections
 public class MyStompSessionHandler extends StompSessionHandlerAdapter {
 
     private String username;
+    private MessageListener messageListener;
 
-    public MyStompSessionHandler(String username){
+    public MyStompSessionHandler(MessageListener messageListener,String username){
         this.username=username;
+        this.messageListener=messageListener;
     }
     //after connecting with server
     @Override
@@ -27,6 +30,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
             //tell the client the expected type of data sent to the server
             @Override
             public Type getPayloadType(StompHeaders headers) {
+
                 System.out.println("Subscribing to topic/messages");
                 return Message.class;       //convert incoming json data to message object
             }
@@ -37,6 +41,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
                 try {
                     if(payload instanceof Message){
                         Message message=(Message) payload;    //store message object
+                        messageListener.onMessageRecieve(message);
                         System.out.println("Received message: "+message.getUser()+": "+message.getMessage());
                     }
                     else{
@@ -50,6 +55,31 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
         });
 
         System.out.println("Client subscribed to topic/messages");
+
+        session.subscribe("/topic/users", new StompFrameHandler() {
+            @Override
+            public Type getPayloadType(StompHeaders headers) {
+                return new ArrayList<String>().getClass();
+            }
+
+            @Override
+            public void handleFrame(StompHeaders headers, Object payload) {
+                try{
+                    //from socket server to /topic/users
+                    if(payload instanceof ArrayList){
+                        ArrayList<String>activeUsers=(ArrayList<String>) payload;
+                        messageListener.onActiveUsersUpdated(activeUsers);
+                        System.out.println("Received Active Users"+activeUsers);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        System.out.println("Subscribed to /topic/users");
+
+        session.send("/app/request-users","");
     }
 
     @Override
