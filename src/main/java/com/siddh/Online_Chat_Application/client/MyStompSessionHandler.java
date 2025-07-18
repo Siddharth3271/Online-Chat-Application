@@ -23,7 +23,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
     @Override
     public void afterConnected(StompSession session, StompHeaders connectedHeaders) {
         System.out.println("Client Connected Successfully");
-        session.send("/app/connect",username);
+
 
         session.subscribe("/topic/messages", new StompFrameHandler() {
 
@@ -78,7 +78,7 @@ public class MyStompSessionHandler extends StompSessionHandlerAdapter {
         });
 
         System.out.println("Subscribed to /topic/users");
-
+        session.send("/app/connect",username);
         session.send("/app/request-users","");
     }
 
