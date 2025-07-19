@@ -33,7 +33,7 @@ This is a full-stack **real-time chat application** built using **Spring Boot We
 ✅ Prerequisites
 Make sure the following are installed:
 
-- Java 17+  (21 recommended)
+- Java 17+ (Java 21 recommended)
 - Maven (3.9.2 or greater)
 - An IDE like IntelliJ (recommended) or Ecilpse
 
@@ -46,22 +46,24 @@ git clone https://github.com/Siddharth3271/Online-Chat-Application.git
 cd Online-Chat-Application
 ```
 
-- Open Project in IntelliJ
+- Open the project in IntelliJ IDEA.
 - Go to [](src/main/java/com/siddh/Online_Chat_Application/client/MyStompClient.java)
-- Change the String "url" from [](https://online-chat-application-hy1a.onrender.com/ws) to [](ws://localhost:8081/ws)
+- Change the Websocket server url in the client from [](https://online-chat-application-hy1a.onrender.com/ws) to [](ws://localhost:8081/ws)
 - Run the backend server from [](src/main/java/com/siddh/Online_Chat_Application/OnlineChatApplication.java)
 - Run the client server from [](src/main/java/com/siddh/Online_Chat_Application/client/App.java)
 
-## Run at least two client server to check the communication between two clients
+### 🧪 Running Multiple Client Instances (in IntelliJ)
 
-# Steps for creating two clients in intellj
-- Go to Run/Debug Configuration Selector in IDE
-- Click on edit configuration
-- select '+' icon then click on Application
-- set the Main Class as App Class and name the Configuration as "App2_Client" or name of your choice
-- apply and save it
+To test two clients locally:
 
-> run both the client servers and start sending messages from both GUIs.
+1. Open **Run/Debug Configuration Selector**.
+2. Click on **Edit Configurations**.
+3. Click `+` → Select **Application**.
+4. Set the **Main class** to your App GUI class (e.g., `AppGUI`).
+5. Name it something like `App2_Client`.
+6. Apply and save.
+
+Repeat this to launch both `AppGUI` and `App2_Client` and start chatting between them.
 
 
 
