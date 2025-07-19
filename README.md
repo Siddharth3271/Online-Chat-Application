@@ -47,10 +47,10 @@ cd Online-Chat-Application
 ```
 
 - Open the project in IntelliJ IDEA.
-- Go to [](src/main/java/com/siddh/Online_Chat_Application/client/MyStompClient.java)
-- Change the Websocket server url in the client from [](https://online-chat-application-hy1a.onrender.com/ws) to [](ws://localhost:8081/ws)
-- Run the backend server from [](src/main/java/com/siddh/Online_Chat_Application/OnlineChatApplication.java)
-- Run the client server from [](src/main/java/com/siddh/Online_Chat_Application/client/App.java)
+- Go to ![MyStompClient](src/main/java/com/siddh/Online_Chat_Application/client/MyStompClient.java)
+- Change the Websocket server url in the client from (https://online-chat-application-hy1a.onrender.com/ws) to (ws://localhost:8081/ws)
+- Run the backend server from ![WebSocket Server](src/main/java/com/siddh/Online_Chat_Application/OnlineChatApplication.java)
+- Run the client server from ![App Server](src/main/java/com/siddh/Online_Chat_Application/client/App.java)
 
 ### 🧪 Running Multiple Client Instances (in IntelliJ)
 
