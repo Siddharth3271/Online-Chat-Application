@@ -54,7 +54,7 @@ cd Online-Chat-Application
 
 ## Run at least two client server to check the communication between two clients
 
-# steps for creating two clients in intellj
+# Steps for creating two clients in intellj
 - Go to Run/Debug Configuration Selector in IDE
 - Click on edit configuration
 - select '+' icon then click on Application
