@@ -1,6 +1,8 @@
 # 💬 Online Chat Application (Java WebSocket + STOMP + Swing Client)
 
-This is a full-stack **real-time chat application** built using **Spring Boot WebSocket (STOMP protocol)** on the backend and a **JavaFX GUI client**. It supports multiple users chatting simultaneously with live message updates and connected user tracking.
+This is a full-stack **real-time chat application** built using **Spring Boot WebSocket (STOMP protocol)** on the backend and a **JavaFX GUI client**. It supports multiple users chatting simultaneously with live message updates and connected user tracking. 
+
+> Since its a desktop application you have to start the service and follow the steps of running the app in your system as follow below.
 
 ![Chat App Screenshot](src/main/java/com/siddh/Online_Chat_Application/assests/WorkingImage.png)
 
